@@ -39,6 +39,10 @@ namespace RETrasactionManager.Lib.KmlFunctions
         }
         public XmlDocument XmlDocument {get; set;}
         public KmlDocument KmlDocument {get;set;}
+        public void Load()
+        {
+            
+        }
         public void Fill ()
         {
             this.KmlDocument = new KmlDocument((this.XmlDocument.GetElementsByTagName("kml")[0] as XmlElement).GetElementsByTagName("Document")[0] as XmlElement);
