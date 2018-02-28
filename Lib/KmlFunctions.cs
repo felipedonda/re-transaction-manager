@@ -9,20 +9,6 @@ using RETrasactionManager.Lib;
 
 namespace RETrasactionManager.Lib.KmlFunctions
 {
-    public class KmlFile
-    {
-        public Kml Kml {get; set;}
-        public async Task ILoad (Stream stream)
-        {
-            //XNamespace ns = "http://www.opengis.net/kml/2.2";
-            XmlDocument XmlDoc = new XmlDocument();
-            Console.WriteLine(" KML -> Loading stream...");
-            await Task.Run( () => {XmlDoc.Load(stream);});
-            Console.WriteLine(" KML -> Filling KML...");
-            this.Kml = new Kml(XmlDoc);
-            this.Kml.Fill();
-        }
-    }
     public class Kml
     {
         public Kml()
@@ -39,9 +25,16 @@ namespace RETrasactionManager.Lib.KmlFunctions
         }
         public XmlDocument XmlDocument {get; set;}
         public KmlDocument KmlDocument {get;set;}
-        public void Load()
+        public Task LoadAsync(Stream stream)
         {
-            
+            return LoadAsyncInternal(stream);
+        }
+        public async Task LoadAsyncInternal(Stream stream)
+        {
+            XmlDocument XmlDoc = new XmlDocument();
+            await Task.Run( () => {XmlDoc.Load(stream);});
+            this.XmlDocument = XmlDoc;
+            this.Fill();
         }
         public void Fill ()
         {

@@ -36,12 +36,12 @@ namespace RETrasactionManager.Controllers
             {
                 if (formFile.Length > 0)
                 {
-                    KmlFile KmlFile = new KmlFile();
+                    Kml kml = new Kml();
                     using (Stream stream = formFile.OpenReadStream())
                     {
-                        await KmlFile.ILoad(stream);
+                        await kml.LoadAsync(stream);
                     }
-                    Output = KmlFile.Kml.ToXml();
+                    Output = kml.ToXml();
                     FileName = formFile.FileName;
                 }
             }
